@@ -281,6 +281,7 @@ CREATE TABLE IF NOT EXISTS sub_contracts{
     updated_at DATETIME NOT NULL,
     FOREIGN KEY(sub_contract_id) REFERENCES sub_contracts(id),
     FOREIGN KEY(sub_bank_account_id) REFERENCES sub_bank_accounts(id),
+    FOREIGN KEY(sub_contract_bill_id) REFERENCES sub_contracts_bills(id),
 };
 
 
