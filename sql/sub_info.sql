@@ -8,16 +8,16 @@ CREATE TABLE IF NOT EXISTS sub_contractors{
     sub_district VARCHAR(255),
 };
 
-CREATE TABLE IF NOT EXISTS contact_numbers{
+CREATE TABLE IF NOT EXISTS sub_contact_numbers{
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     sub_contractor_id INTEGER NOT NULL,
     sub_contact_owner_name VARCHAR(255) NOT NULL,
     sub_role VARCHAR(255) NOT NULL,
-    sub_contact_number VARCHAR(255) NOT NULL,
+    sub_contact_number VARCHAR(55) NOT NULL,
     FOREIGN KEY(sub_contractor_id) REFERENCES sub_contractors(id)
 };
 
-CREATE TABLE IF NOT EXISTS bank_accounts{
+CREATE TABLE IF NOT EXISTS sub_bank_accounts{
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     sub_contractor_id INTEGER NOT NULL,
     sub_account_name VARCHAR(255) NOT NULL,
@@ -40,136 +40,248 @@ CREATE TABLE IF NOT EXISTS projects{
 
 --rate schedule
 
-CREATE TABLE IF NOT EXISTS rate_schedules{
+CREATE TABLE IF NOT EXISTS sub_rate_schedules{
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    rate_schedule_name VARCHAR(255) NOT NULL,
+    sub_rate_schedule_name VARCHAR(255) NOT NULL,
 };
 
 --works
 
-CREATE TABLE IF NOT EXISTS civil_works{
+CREATE TABLE IF NOT EXISTS sub_civil_works{
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     civil_work VARCHAR(255) NOT NULL,
 };
 
-CREATE TABLE IF NOT EXISTS plumbing_works{
+CREATE TABLE IF NOT EXISTS sub_plumbing_works{
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     plumbing_work VARCHAR(255) NOT NULL,
 };
 
-CREATE TABLE IF NOT EXISTS electrical_works{
+CREATE TABLE IF NOT EXISTS sub_electrical_works{
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     electrical_work VARCHAR(255) NOT NULL,
 };
 
-CREATE TABLE IF NOT EXISTS wood_works{
+CREATE TABLE IF NOT EXISTS sub_wood_works{
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     wood_work VARCHAR(255) NOT NULL,
 };
 
-CREATE TABLE IF NOT EXISTS tile_works{
+CREATE TABLE IF NOT EXISTS sub_tile_works{
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     tile_work VARCHAR(255) NOT NULL,
 };
 
-CREATE TABLE IF NOT EXISTS paint_works{
+CREATE TABLE IF NOT EXISTS sub_paint_works{
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     paint_work VARCHAR(255) NOT NULL,
 };
 
-CREATE TABLE IF NOT EXISTS aluminium_works{
+CREATE TABLE IF NOT EXISTS sub_aluminium_works{
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     aluminium_work VARCHAR(255) NOT NULL,
 };
 
 --general rates
 
-CREATE TABLE IF NOT EXISTS general_civil_rates{
+CREATE TABLE IF NOT EXISTS general_sub_civil_rates{
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    rate_schedule_id INTEGER NOT NULL,
-    civil_work_id INTEGER NOT NULL,
+    sub_rate_schedule_id INTEGER NOT NULL,
+    sub_civil_work_id INTEGER NOT NULL,
     rate FLOAT NOT NULL,
-    FOREIGN KEY(rate_schedule_id) REFERENCES rate_schedules(id),
-    FOREIGN KEY(civil_work_id) REFERENCES civil_works(id)
+    FOREIGN KEY(sub_rate_schedule_id) REFERENCES sub_rate_schedules(id),
+    FOREIGN KEY(sub_civil_work_id) REFERENCES sub_civil_works(id)
 };
 
-CREATE TABLE IF NOT EXISTS general_plumbing_rates{
+CREATE TABLE IF NOT EXISTS general_sub_plumbing_rates{
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    rate_schedule_id INTEGER NOT NULL,
-    plumbing_work_id INTEGER NOT NULL,
+    sub_rate_schedule_id INTEGER NOT NULL,
+    sub_plumbing_work_id INTEGER NOT NULL,
     rate FLOAT NOT NULL,
-    FOREIGN KEY(rate_schedule_id) REFERENCES rate_schedules(id),
-    FOREIGN KEY(plumbing_work_id) REFERENCES plumbing_works(id)
+    FOREIGN KEY(sub_rate_schedule_id) REFERENCES sub_rate_schedules(id),
+    FOREIGN KEY(sub_plumbing_work_id) REFERENCES sub_plumbing_works(id)
 };
 
-CREATE TABLE IF NOT EXISTS general_electrical_rates{
+CREATE TABLE IF NOT EXISTS general_sub_electrical_rates{
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    rate_schedule_id INTEGER NOT NULL,
-    electrical_work_id INTEGER NOT NULL,
+    sub_rate_schedule_id INTEGER NOT NULL,
+    sub_electrical_work_id INTEGER NOT NULL,
     rate FLOAT NOT NULL,
-    FOREIGN KEY(rate_schedule_id) REFERENCES rate_schedules(id),
-    FOREIGN KEY(electrical_work_id) REFERENCES electrical_works(id)
+    FOREIGN KEY(sub_rate_schedule_id) REFERENCES sub_rate_schedules(id),
+    FOREIGN KEY(sub_electrical_work_id) REFERENCES sub_electrical_works(id)
 };
 
-CREATE TABLE IF NOT EXISTS general_wood_rates{
+CREATE TABLE IF NOT EXISTS general_sub_wood_rates{
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    rate_schedule_id INTEGER NOT NULL,
-    wood_work_id INTEGER NOT NULL,
+    sub_rate_schedule_id INTEGER NOT NULL,
+    sub_wood_work_id INTEGER NOT NULL,
     rate FLOAT NOT NULL,
-    FOREIGN KEY(rate_schedule_id) REFERENCES rate_schedules(id),
-    FOREIGN KEY(wood_work_id) REFERENCES wood_works(id)
+    FOREIGN KEY(sub_rate_schedule_id) REFERENCES sub_rate_schedules(id),
+    FOREIGN KEY(sub_wood_work_id) REFERENCES sub_wood_works(id)
 };
 
-CREATE TABLE IF NOT EXISTS general_tile_rates{
+CREATE TABLE IF NOT EXISTS general_sub_tile_rates{
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    rate_schedule_id INTEGER NOT NULL,
-    tile_work_id INTEGER NOT NULL,
+    sub_rate_schedule_id INTEGER NOT NULL,
+    sub_tile_work_id INTEGER NOT NULL,
     rate FLOAT NOT NULL,
-    FOREIGN KEY(rate_schedule_id) REFERENCES rate_schedules(id),
-    FOREIGN KEY(tile_work_id) REFERENCES tile_works(id)
+    FOREIGN KEY(sub_rate_schedule_id) REFERENCES sub_rate_schedules(id),
+    FOREIGN KEY(sub_tile_work_id) REFERENCES sub_tile_works(id)
 };
 
-CREATE TABLE IF NOT EXISTS general_paint_rates{
+CREATE TABLE IF NOT EXISTS general_sub_paint_rates{
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    rate_schedule_id INTEGER NOT NULL,
-    paint_work_id INTEGER NOT NULL,
+    sub_rate_schedule_id INTEGER NOT NULL,
+    sub_paint_work_id INTEGER NOT NULL,
     rate FLOAT NOT NULL,
-    FOREIGN KEY(rate_schedule_id) REFERENCES rate_schedules(id),
-    FOREIGN KEY(paint_work_id) REFERENCES paint_works(id)
+    FOREIGN KEY(sub_rate_schedule_id) REFERENCES sub_rate_schedules(id),
+    FOREIGN KEY(sub_paint_work_id) REFERENCES sub_paint_works(id)
 };
 
-CREATE TABLE IF NOT EXISTS general_aluminium_rates{
+CREATE TABLE IF NOT EXISTS general_sub_aluminium_rates{
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    rate_schedule_id INTEGER NOT NULL,
-    aluminium_work_id INTEGER NOT NULL,
+    sub_rate_schedule_id INTEGER NOT NULL,
+    sub_aluminium_work_id INTEGER NOT NULL,
     rate FLOAT NOT NULL,
-    FOREIGN KEY(rate_schedule_id) REFERENCES rate_schedules(id),
-    FOREIGN KEY(aluminium_work_id) REFERENCES aluminium_works(id)
+    FOREIGN KEY(sub_rate_schedule_id) REFERENCES sub_rate_schedules(id),
+    FOREIGN KEY(sub_aluminium_work_id) REFERENCES sub_aluminium_works(id)
 };
-
-
-
-
-
-
 
 
 --custom rates
 
-CREATE TABLE IF NOT EXISTS custom_civil_rates{
+CREATE TABLE IF NOT EXISTS custom_sub_civil_rates{
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    rate_schedule_id INTEGER NOT NULL,
+    sub_rate_schedule_id INTEGER NOT NULL,
     project_id INTEGER NOT NULL,
     sub_contractor_id INTEGER NOT NULL,
-    civil_work_id INTEGER NOT NULL,
+    sub_civil_work_id INTEGER NOT NULL,
     rate FLOAT NOT NULL,
-    FOREIGN KEY(rate_schedule_id) REFERENCES rate_schedules(id),
+    FOREIGN KEY(sub_rate_schedule_id) REFERENCES sub_rate_schedules(id),
     FOREIGN KEY(project_id) REFERENCES projects(id),
     FOREIGN KEY(sub_contractor_id) REFERENCES sub_contractors(id),
-    FOREIGN KEY(civil_work_id) REFERENCES civil_works(id)
+    FOREIGN KEY(sub_civil_work_id) REFERENCES sub_civil_works(id)
+};
+
+CREATE TABLE IF NOT EXISTS custom_sub_plumbing_rates{
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    sub_rate_schedule_id INTEGER NOT NULL,
+    project_id INTEGER NOT NULL,
+    sub_contractor_id INTEGER NOT NULL,
+    sub_plumbing_work_id INTEGER NOT NULL,
+    rate FLOAT NOT NULL,
+    FOREIGN KEY(sub_rate_schedule_id) REFERENCES sub_rate_schedules(id),
+    FOREIGN KEY(project_id) REFERENCES projects(id),
+    FOREIGN KEY(sub_contractor_id) REFERENCES sub_contractors(id),
+    FOREIGN KEY(sub_plumbing_work_id) REFERENCES sub_plumbing_works(id)
+};
+
+CREATE TABLE IF NOT EXISTS custom_sub_electrical_rates{
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    sub_rate_schedule_id INTEGER NOT NULL,
+    project_id INTEGER NOT NULL,
+    sub_contractor_id INTEGER NOT NULL,
+    sub_electrical_work_id INTEGER NOT NULL,
+    rate FLOAT NOT NULL,
+    FOREIGN KEY(sub_rate_schedule_id) REFERENCES sub_rate_schedules(id),
+    FOREIGN KEY(project_id) REFERENCES projects(id),
+    FOREIGN KEY(sub_contractor_id) REFERENCES sub_contractors(id),
+    FOREIGN KEY(sub_electrical_work_id) REFERENCES sub_electrical_works(id)
+};
+
+CREATE TABLE IF NOT EXISTS custom_sub_wood_rates{
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    sub_rate_schedule_id INTEGER NOT NULL,
+    project_id INTEGER NOT NULL,
+    sub_contractor_id INTEGER NOT NULL,
+    sub_wood_work_id INTEGER NOT NULL,
+    rate FLOAT NOT NULL,
+    FOREIGN KEY(sub_rate_schedule_id) REFERENCES sub_rate_schedules(id),
+    FOREIGN KEY(project_id) REFERENCES projects(id),
+    FOREIGN KEY(sub_contractor_id) REFERENCES sub_contractors(id),
+    FOREIGN KEY(sub_wood_work_id) REFERENCES sub_wood_works(id)
+};
+
+CREATE TABLE IF NOT EXISTS custom_sub_tile_rates{
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    sub_rate_schedule_id INTEGER NOT NULL,
+    project_id INTEGER NOT NULL,
+    sub_contractor_id INTEGER NOT NULL,
+    sub_tile_work_id INTEGER NOT NULL,
+    rate FLOAT NOT NULL,
+    FOREIGN KEY(sub_rate_schedule_id) REFERENCES sub_rate_schedules(id),
+    FOREIGN KEY(project_id) REFERENCES projects(id),
+    FOREIGN KEY(sub_contractor_id) REFERENCES sub_contractors(id),
+    FOREIGN KEY(sub_tile_work_id) REFERENCES sub_tile_works(id)
+};
+
+CREATE TABLE IF NOT EXISTS custom_sub_paint_rates{
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    sub_rate_schedule_id INTEGER NOT NULL,
+    project_id INTEGER NOT NULL,
+    sub_contractor_id INTEGER NOT NULL,
+    sub_paint_work_id INTEGER NOT NULL,
+    rate FLOAT NOT NULL,
+    FOREIGN KEY(sub_rate_schedule_id) REFERENCES sub_rate_schedules(id),
+    FOREIGN KEY(project_id) REFERENCES projects(id),
+    FOREIGN KEY(sub_contractor_id) REFERENCES sub_contractors(id),
+    FOREIGN KEY(sub_paint_work_id) REFERENCES sub_paint_works(id)
+};
+
+CREATE TABLE IF NOT EXISTS custom_sub_aluminium_rates{
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    sub_rate_schedule_id INTEGER NOT NULL,
+    project_id INTEGER NOT NULL,
+    sub_contractor_id INTEGER NOT NULL,
+    sub_aluminium_work_id INTEGER NOT NULL,
+    rate FLOAT NOT NULL,
+    FOREIGN KEY(sub_rate_schedule_id) REFERENCES sub_rate_schedules(id),
+    FOREIGN KEY(project_id) REFERENCES projects(id),
+    FOREIGN KEY(sub_contractor_id) REFERENCES sub_contractors(id),
+    FOREIGN KEY(sub_aluminium_work_id) REFERENCES sub_aluminium_works(id)
 };
 
 
+--contract infomation
+
+
+CREATE TABLE IF NOT EXISTS sub_contracts{
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    contract_name VARCHAR(255) NOT NULL,
+    project_id INTEGER NOT NULL,
+    sub_contractor_id INTEGER NOT NULL,
+    sub_rate_schedule_id INTEGER NOT NULL,
+    start_date DATE NOT NULL,
+    end_date DATE,
+    FOREIGN KEY(sub_rate_schedule_id) REFERENCES sub_rate_schedules(id),
+    FOREIGN KEY(project_id) REFERENCES projects(id),
+    FOREIGN KEY(sub_contractor_id) REFERENCES sub_contractors(id),
+};
+
+
+--bills
+
+CREATE TABLE IF NOT EXISTS sub_contracts_bills{
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    sub_contract_id INTEGER NOT NULL,
+    sub_contract_bill VARCHAR(255) NOT NULL,
+
+
+--payments
+
+
+CREATE TABLE IF NOT EXISTS sub_contracts{
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    sub_contract_id INTEGER NOT NULL,
+    sub_contract_bill_id INTEGER NOT NULL,
+    sub_bank_account_id INTEGER NOT NULL,
+    date DATE NOT NULL,
+    amount FLOAT NOT NULL,
+    created_at DATETIME NOT NULL,
+    updated_at DATETIME NOT NULL,
+    FOREIGN KEY(sub_contract_id) REFERENCES sub_contracts(id),
+    FOREIGN KEY(sub_bank_account_id) REFERENCES sub_bank_accounts(id),
+};
 
 
 
