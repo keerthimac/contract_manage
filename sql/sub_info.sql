@@ -4,8 +4,12 @@ CREATE TABLE IF NOT EXISTS sub_contractors{
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     sub_name VARCHAR(255) NOT NULL,
     sub_address VARCHAR(255),
-    sub_city VARCHAR(255),
-    sub_district VARCHAR(255),
+    province_id INTEGER,
+    district_id INTEGER,
+    city_id INTEGER,
+    FOREIGN KEY(province_id) REFERENCES provinces(id),
+    FOREIGN KEY(district_id) REFERENCES districts(id),
+    FOREIGN KEY(city_id) REFERENCES cities(id)
 };
 
 CREATE TABLE IF NOT EXISTS sub_contact_numbers{
@@ -34,8 +38,12 @@ CREATE TABLE IF NOT EXISTS projects{
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     client_name VARCHAR(255) NOT NULL,
     client_address VARCHAR(255),
-    client_city VARCHAR(255),
-    client_district VARCHAR(255),
+    province_id INTEGER,
+    district_id INTEGER,
+    city_id INTEGER,
+    FOREIGN KEY(province_id) REFERENCES provinces(id),
+    FOREIGN KEY(district_id) REFERENCES districts(id),
+    FOREIGN KEY(city_id) REFERENCES cities(id)
 };
 
 --rate schedule
@@ -268,7 +276,6 @@ CREATE TABLE IF NOT EXISTS sub_contracts_bills{
 
 
 --payments
-
 
 CREATE TABLE IF NOT EXISTS sub_contracts{
     id INTEGER PRIMARY KEY AUTOINCREMENT,
