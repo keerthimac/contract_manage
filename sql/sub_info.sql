@@ -1,3 +1,5 @@
+use arch;
+
 -- Sub Contractor Info
 
 CREATE TABLE IF NOT EXISTS sub_contractors (
