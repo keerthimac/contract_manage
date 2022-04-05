@@ -5,6 +5,7 @@ use arch;
 CREATE TABLE IF NOT EXISTS sub_contractors (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
     sub_name VARCHAR(255) NOT NULL,
+    sub_nick_name VARCHAR(255) NOT NULL,
     sub_address VARCHAR(255),
     province_id INTEGER,
     district_id INTEGER,
