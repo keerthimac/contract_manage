@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS sub_contractors (
     sub_contract_type_id INTEGER NOT NULL,
     sub_nick_name VARCHAR(255) NOT NULL,
     sub_address VARCHAR(255),
+    sub_email VARCHAR(255),
     province_id INTEGER,
     district_id INTEGER,
     city_id INTEGER,

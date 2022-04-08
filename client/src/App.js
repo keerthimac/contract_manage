@@ -1,6 +1,7 @@
 import "./App.css";
 import { useRef, useState } from "react";
 import FromInput from "./components/FormInput";
+import SelectInput from "./components/SelectInput";
 
 function App() {
   const [values, setValues] = useState({
@@ -10,6 +11,19 @@ function App() {
     password: "",
     confirmPassword: "",
   });
+
+  const subType = [
+    {
+      id: 1,
+      value: "individual",
+      placeholder: "individual",
+    },
+    {
+      id: 2,
+      value: "company",
+      placeholder: "company",
+    },
+  ];
 
   const inputs = [
     {
@@ -21,43 +35,6 @@ function App() {
         "Username should be at 3-16 characters and shouldn't include any special character.",
       label: "Username",
       pattern: "^[A-Za-z0-9]{3,16}$",
-      required: true,
-    },
-    {
-      id: 2,
-      name: "email",
-      type: "text",
-      placeholder: "Email",
-      errorMessage: "Email should be valid.",
-      label: "Email",
-      pattern: "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,4}$",
-      required: true,
-    },
-    {
-      id: 3,
-      name: "birthday",
-      type: "date",
-      placeholder: "Birthday",
-      label: "Birthday",
-    },
-    {
-      id: 4,
-      name: "password",
-      type: "password",
-      placeholder: "Password",
-      errorMessage:
-        "Username should be at least 6 characters long and at least 1 letter, 1 capital letter.",
-      label: "Password",
-      required: true,
-    },
-    {
-      id: 5,
-      name: "confirmPassword",
-      type: "password",
-      placeholder: "Confirm Password",
-      errorMessage: "password and confirm password should be the same.",
-      label: "Confirm Password",
-      pattern: values.password,
       required: true,
     },
   ];
@@ -87,6 +64,7 @@ function App() {
             onChange={onChange}
           />
         ))}
+        <SelectInput data={subType} placeholder={"Sub Type"} />
         <button>Submit</button>
       </form>
     </div>
