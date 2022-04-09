@@ -13,6 +13,11 @@ function App() {
     confirmPassword: "",
   });
 
+  const subType= [
+    { id: 1, value: "individual", label: "individual" },
+    { id: 2, value: "company", label: "company" },
+  ]
+
   const inputs = [
     {
       id: 1,
@@ -83,7 +88,7 @@ function App() {
     <div className='app'>
       <form onSubmit={onFromSubmit}>
         <h1>Register</h1>
-        <FormSelect onChange={onChange} />
+        <FormSelect onChange={onChange} name={"sub_type"} data = {subType} label={"Sub Type"}/>
         {inputs.map((input) => (
           <FromInput
             key={input.id}
