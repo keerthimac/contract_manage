@@ -1,10 +1,12 @@
 import "./App.css";
 import { useRef, useState } from "react";
 import FromInput from "./components/FormInput";
+import FormSelect from "./components/FormSelect";
 
 function App() {
   const [values, setValues] = useState({
     username: "",
+    sub_type: "",
     email: "",
     birthday: "",
     password: "",
@@ -69,6 +71,8 @@ function App() {
   };
 
   const onChange = (e) => {
+    console.log(e.target.name);
+    console.log(e.target.value);
     setValues({
       ...values,
       [e.target.name]: e.target.value,
@@ -76,9 +80,10 @@ function App() {
   };
 
   return (
-    <div className="app">
+    <div className='app'>
       <form onSubmit={onFromSubmit}>
         <h1>Register</h1>
+        <FormSelect onChange={onChange} />
         {inputs.map((input) => (
           <FromInput
             key={input.id}
