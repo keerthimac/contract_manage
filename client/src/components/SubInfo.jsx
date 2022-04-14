@@ -6,7 +6,7 @@ import FormSelect from "../shared/FormSelect";
 function SubInfo() {
   const [values, setValues] = useState({
     username: "",
-    sub_type: "",
+    subType: "",
     email: "",
     birthday: "",
     password: "",
@@ -88,7 +88,7 @@ function SubInfo() {
         <h1>Register</h1>
         <FormSelect
           onChange={onChange}
-          name={"sub_type"}
+          name={"subType"}
           data={subType}
           label={"Sub Type"}
         />
