@@ -1,11 +1,13 @@
 import "./formSelect.css";
 
-
-function FromSelect({ data, onChange, name,label }) {
+function FromSelect({ data, onChange, name, label }) {
   return (
-    <div className="formSelect">
+    <div className='formSelect'>
       <label>{label}</label>
       <select name={name} onChange={onChange}>
+        <option disabled selected>
+          Please Select {label}
+        </option>
         {data.map((item) => (
           <option key={item.id} value={item.value}>
             {item.label}
