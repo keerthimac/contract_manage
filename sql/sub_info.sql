@@ -7,18 +7,27 @@ CREATE TABLE IF NOT EXISTS sub_contract_type(
 -- Sub Contractor Info
 CREATE TABLE IF NOT EXISTS sub_contractors (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
-    sub_name VARCHAR(255) NOT NULL,
     sub_contract_type_id INTEGER NOT NULL,
+    sub_name VARCHAR(255) NOT NULL,
     sub_nick_name VARCHAR(255) NOT NULL,
-    sub_address VARCHAR(255),
-    sub_email VARCHAR(255),
+    FOREIGN KEY(sub_contract_type_id) REFERENCES sub_contract_type(id),
+);
+-- Sub Contractor Address
+CREATE TABLE IF NOT EXISTS sub_contractor_address (
+    id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    sub_contractor_id INTEGER NOT NULL,
+    address_line_01 VARCHAR(255),
+    address_line_02 VARCHAR(255),
+    address_line_03 VARCHAR(255),
     province_id INTEGER,
     district_id INTEGER,
     city_id INTEGER,
+    FOREIGN KEY(sub_contractor_id) REFERENCES sub_contractors(id),
     FOREIGN KEY(province_id) REFERENCES provinces(id),
     FOREIGN KEY(district_id) REFERENCES districts(id),
     FOREIGN KEY(city_id) REFERENCES cities(id)
 );
+--Sub Contractor Contacts
 CREATE TABLE IF NOT EXISTS sub_contact_numbers(
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
     sub_contractor_id INTEGER NOT NULL,
