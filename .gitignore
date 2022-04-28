@@ -1,5 +1,6 @@
 data/all_bank_accounts/~$Sampath bank accounts.xlsx
 data/table_data/~$sub_names.xlsx
+/node_modules
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 

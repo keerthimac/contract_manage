@@ -1,4 +1,4 @@
-import "./formSelect.css";
+// import "./formSelect.css";
 
 function FromSelect({ data, onChange, name, label }) {
   return (
