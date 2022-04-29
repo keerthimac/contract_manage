@@ -172,8 +172,8 @@ function SubInfo() {
       if (values.province === "0" || values.district === "0") {
         return;
       }
-      let id = values.district_id;
-      let pro_id = values.province_id;
+      let id = values.district;
+      let pro_id = values.province;
       //console.log(code);
       const response = await fetch(
         `http://localhost:5000/location/city/${id}/${pro_id}`
