@@ -5,9 +5,7 @@ function FromSelect({ data, onChange, name, label }) {
     <div className='formSelect'>
       <label>{label}</label>
       <select name={name} onChange={onChange}>
-        <option disabled selected>
-          Please Select {label}
-        </option>
+        <option>Please Select {label}</option>
         {data.map((item) => (
           <option key={item.id} value={item.value}>
             {item.label}
@@ -18,10 +16,6 @@ function FromSelect({ data, onChange, name, label }) {
   );
 }
 // FromSelect.defaultProps = {
-//   data: [
-//     { id: 1, value: "Hello", label: "Hello" },
-//     { id: 2, value: "goodf", label: "asdfasdf" },
-//     { id: 3, value: "Hasdfasdfasdf", label: "ilrugweroyuigv" },
-//   ],
+//   data: [{ id: 1, value: "0", label: "No Options" }],
 // };
 export default FromSelect;

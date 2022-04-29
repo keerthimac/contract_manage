@@ -1,21 +1,36 @@
 // import "./subInfo.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FromInput from "../shared/FormInput";
 import FormSelect from "../shared/FormSelect";
 
 function SubInfo() {
   const [values, setValues] = useState({
     subName: "",
-    subNickName:"",
+    subNickName: "",
     subType: "",
     addressLine01: "",
     addressLine02: "",
-    addressLine03:"",
-    province:"",
-    district:""
+    addressLine03: "",
+    province: "0",
+    district: "0",
+    city: "0",
   });
 
-  const[cities,setCities] = useState()
+  const [provinces, setProvinces] = useState([
+    { id: 0, value: "0", label: "No Options" },
+  ]);
+  const [districts, setDistricts] = useState([
+    { id: 0, value: "0", label: "No Options" },
+  ]);
+  const [cities, setCities] = useState([
+    { id: 0, value: "0", label: "No Options" },
+  ]);
+
+  useEffect(() => {
+    getProvinces();
+    getDistricts();
+    getCities();
+  }, [values.province, values.district]);
 
   const subTypes = [
     { id: 1, value: "individual", label: "individual" },
@@ -74,7 +89,6 @@ function SubInfo() {
       required: true,
     },
 
-
     // {
     //   id: 3,
     //   name: "email",
@@ -114,50 +128,68 @@ function SubInfo() {
     // },
   ];
 
-  const provinces = [
-    { id: 1, value: "1", label: "Western" },
-    { id: 2, value: "Central", label: "Central" },
-    { id: 3, value: "Southern", label: "Southern" },
-    { id: 4, value: "North Western", label: "North Western" },
-    { id: 5, value: "Sabaragamuwa", label: "Sabaragamuwa" },
-    { id: 6, value: "Eastern", label: "Eastern" },
-    { id: 7, value: "Uva", label: "Uva" },
-    { id: 8, value: "North Central", label: "North Central" },
-    { id: 9, value: "Northern", label: "Northern" },
-  ];
+  const getProvinces = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/location/province");
+      const data = await response.json();
+      const value = data.map((province) => ({
+        id: province.province_id,
+        value: province.province_id,
+        label: province.province_name,
+      }));
+      // setBankList(data);
+      // setBankOption(values);
+      setProvinces(value);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
 
-  const district = [
-    { id: 1, value: "1", label: "Ampara" },
-    { id: 2, value: "2", label: "Anuradhapura" },
-    { id: 3, value: "3", label: "Badulla" },
-    { id: 4, value: "4", label: "Batticaloa" },
-    { id: 5, value: "5", label: "Colombo" },
-    { id: 6, value: "6", label: "Galle" },
-    { id: 7, value: "7", label: "Gampaha" },
-    { id: 8, value: "8", label: "Hambantota" },
-    { id: 9, value: "9", label: "Jaffna" },
-    { id: 10, value: "10", label: "Kalutara" },
-    { id: 11, value: "11", label: "Kandy" },
-    { id: 12, value: "12", label: "Kegalle" },
-    { id: 13, value: "13", label: "Kilinochchi" },
-    { id: 14, value: "14", label: "Kurunegala" },
-    { id: 15, value: "15", label: "Mannar" },
-    { id: 16, value: "16", label: "Matale" },
-    { id: 17, value: "17", label: "Matara" },
-    { id: 18, value: "18", label: "Monaragala" },
-    { id: 19, value: "19", label: "Mullaitivu" },
-    { id: 20, value: "20", label: "Nuwara Eliya" },
-    { id: 21, value: "21", label: "Polonnaruwa" },
-    { id: 22, value: "22", label: "Puttalam" },
-    { id: 23, value: "23", label: "Ratnapura" },
-    { id: 24, value: "24", label: "Trincomalee" },
-    { id: 25, value: "25", label: "Vavuniya" },
-  ];
+  const getDistricts = async () => {
+    try {
+      if (values.province === "0") {
+        return;
+      }
+      const code = values.province;
+      console.log("district run");
+      const response = await fetch(
+        `http://localhost:5000/location/district/${code}`
+      );
+      const data = await response.json();
+      const value = data.map((district) => ({
+        id: district.district_id,
+        value: district.district_id,
+        label: district.district_name,
+      }));
+      setDistricts(value);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
 
-  const city = [
-    { id: 1, value: "individual", label: "individual" },
-    { id: 2, value: "company", label: "company" },
-  ];
+  const getCities = async () => {
+    try {
+      if (values.province === "0" || values.district === "0") {
+        return;
+      }
+      let id = values.district_id;
+      let pro_id = values.province_id;
+      //console.log(code);
+      const response = await fetch(
+        `http://localhost:5000/location/city/${id}/${pro_id}`
+      );
+
+      const data = await response.json();
+      const value = data.map((city) => ({
+        id: city.city_id,
+        value: city.city_id,
+        label: city.city_name,
+      }));
+      setCities(value);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
 
   const onFromSubmit = (e) => {
     e.preventDefault();
@@ -199,16 +231,16 @@ function SubInfo() {
         <FormSelect
           onChange={onChange}
           name={"district"}
-          data={district}
+          data={districts}
           label={"District"}
         />
         <FormSelect
           onChange={onChange}
-          name={"district"}
-          data={district}
-          label={"District"}
+          name={"city"}
+          data={cities}
+          label={"City"}
         />
-        
+
         <button>Submit</button>
       </form>
     </div>
