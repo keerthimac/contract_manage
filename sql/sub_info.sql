@@ -28,12 +28,13 @@ CREATE TABLE IF NOT EXISTS sub_contractor_address (
     FOREIGN KEY(city_id) REFERENCES cities(id)
 );
 --Sub Contractor Contacts
-CREATE TABLE IF NOT EXISTS sub_contact_numbers(
+CREATE TABLE IF NOT EXISTS sub_contact_info(
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
     sub_contractor_id INTEGER NOT NULL,
     sub_contact_owner_name VARCHAR(255) NOT NULL,
     sub_role VARCHAR(255) NOT NULL,
-    sub_contact_number VARCHAR(55) NOT NULL,
+    sub_phone_number VARCHAR(55),
+    sub_contact_id_number VARCHAR(55),
     FOREIGN KEY(sub_contractor_id) REFERENCES sub_contractors(id)
 );
 -- banks info
