@@ -1,7 +1,7 @@
 // import "./subInfo.css";
 import { useState, useEffect } from "react";
-import FromInput from "../shared/FormInput";
-import FormSelect from "../shared/FormSelect";
+import FromInput from "../../shared/FormInput/FormInput";
+import FormSelect from "../../shared/FromSelect/FormSelect";
 
 function SubInfo() {
   const [values, setValues] = useState({
