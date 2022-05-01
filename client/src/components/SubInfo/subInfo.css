@@ -6,7 +6,7 @@ form {
 
 h1 {
   color: rgb(77, 1, 77);
-  text-align: center;
+  text-align: left;
 }
 
 button {
@@ -26,13 +26,15 @@ button {
 
 .subContainer {
   display: flex;
+  flex-direction: row;
 }
 
 .subAddress {
   flex: 1;
+  margin: 0 30px;
 }
 
-.subInfo {
+.subName {
   flex: 1;
 }
 

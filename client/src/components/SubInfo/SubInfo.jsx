@@ -47,8 +47,8 @@ function SubInfo() {
   }, [values.province, values.district, values.bank]);
 
   const subTypes = [
-    { id: 1, value: "individual", label: "individual" },
-    { id: 2, value: "company", label: "company" },
+    { id: 1, value: "1", label: "individual" },
+    { id: 2, value: "2", label: "company" },
   ];
 
   const subName = [
@@ -266,10 +266,20 @@ function SubInfo() {
     }
   };
 
-  const onFromSubmit = (e) => {
+  const onFromSubmit = async (e) => {
     e.preventDefault();
-    const data = new FormData(e.target);
-    console.log(Object.fromEntries(data.entries()));
+    // console.log({ ...values });
+    const response1 = await fetch("http://localhost:5000/subContract/subName", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ ...values }),
+    });
+    const data = await response1.json();
+    console.log(data);
+    // const data = new FormData(e.target);
+    // console.log(Object.fromEntries(data.entries()));
   };
 
   const onChange = (e) => {
@@ -283,7 +293,7 @@ function SubInfo() {
     <form onSubmit={onFromSubmit}>
       <h1>Register</h1>
       <div className='subContainer'>
-        <div class='subName'>
+        <div className='subName'>
           <FormSelect
             onChange={onChange}
             name={"subType"}
