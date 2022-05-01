@@ -53,7 +53,7 @@ router.get("/city/:id/:pro_id", async (req, res) => {
     const response = await pool.query(
       // "SELECT bank_name,branch_code,branch_location FROM banks AS bk LEFT JOIN branches AS br ON bk.bank_code = br.bank_code WHERE bank_name like ?",
       // ["%bank%"]
-      "SELECT cities.id as city_id ,cities.name_en as city_name FROM materials.provinces JOIN districts ON provinces.id=districts.province_id JOIN cities ON districts.id = cities.district_id WHERE provinces.id=? AND districts.id = ?;",
+      "SELECT cities.id as city_id ,cities.name_en as city_name FROM provinces JOIN districts ON provinces.id=districts.province_id JOIN cities ON districts.id = cities.district_id WHERE provinces.id=? AND districts.id = ?;",
       [pro_id, id]
     );
     res.json(response[0]);
