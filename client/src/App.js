@@ -1,6 +1,6 @@
 // import "./App.css";
 
-import SubInfo from "./components/SubInfo/SubInfo";
+import SubInfo from "./components/subInfo/SubInfo";
 function App() {
   return (
     <div className='app'>

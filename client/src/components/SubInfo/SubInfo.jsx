@@ -1,7 +1,7 @@
 // import "./subInfo.css";
 import { useState, useEffect } from "react";
-import FromInput from "../../shared/FormInput/FormInput";
-import FormSelect from "../../shared/FromSelect/FormSelect";
+import FromInput from "../../shared/formInput/FormInput";
+import FormSelect from "../../shared/fromSelect/FormSelect";
 
 function SubInfo() {
   const [values, setValues] = useState({
@@ -14,6 +14,10 @@ function SubInfo() {
     province: "0",
     district: "0",
     city: "0",
+    bankAccountName: "",
+    bankAccountNumber: "",
+    bank: "0",
+    branch: "0",
   });
 
   const [provinces, setProvinces] = useState([
@@ -26,18 +30,28 @@ function SubInfo() {
     { id: 0, value: "0", label: "No Options" },
   ]);
 
+  const [banks, setBanks] = useState([
+    { id: 0, value: "0", label: "No Options" },
+  ]);
+
+  const [branches, setBranches] = useState([
+    { id: 0, value: "0", label: "No Options" },
+  ]);
+
   useEffect(() => {
     getProvinces();
     getDistricts();
     getCities();
-  }, [values.province, values.district]);
+    getBanks();
+    getBranches();
+  }, [values.province, values.district, values.bank]);
 
   const subTypes = [
     { id: 1, value: "individual", label: "individual" },
     { id: 2, value: "company", label: "company" },
   ];
 
-  const inputs = [
+  const subInfo = [
     {
       id: 1,
       name: "subName",
@@ -128,6 +142,29 @@ function SubInfo() {
     // },
   ];
 
+  const subAccount = [
+    {
+      id: 6,
+      name: "bankAccountName",
+      placeholder: "Bank Account Name",
+      // errorMessage:
+      //   "Username should be at 3-16 characters and shouldn't include any special character.",
+      label: "Bank Account Name",
+      // pattern: "^[A-Za-z0-9]{3,16}$",
+      required: true,
+    },
+    {
+      id: 7,
+      name: "bankAccountNumber",
+      placeholder: "Bank Account Number",
+      // errorMessage:
+      //   "Username should be at 3-16 characters and shouldn't include any special character.",
+      label: "Bank Account Number",
+      // pattern: "^[A-Za-z0-9]{3,16}$",
+      required: true,
+    },
+  ];
+
   const getProvinces = async () => {
     try {
       const response = await fetch("http://localhost:5000/location/province");
@@ -191,6 +228,41 @@ function SubInfo() {
     }
   };
 
+  const getBanks = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/banks");
+      const data = await response.json();
+      const value = data.map((bank) => ({
+        id: bank.bank_code,
+        value: bank.bank_code,
+        label: bank.bank_name,
+      }));
+      setBanks(value);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  const getBranches = async () => {
+    try {
+      if (values.bank === "0") {
+        return;
+      }
+      const code = values.bank;
+      console.log("branch run");
+      const response = await fetch(`http://localhost:5000/banks/${code}`);
+      const data = await response.json();
+      const value = data.map((branch) => ({
+        id: branch.branch_id,
+        value: branch.branch_id,
+        label: branch.branch_location,
+      }));
+      setBranches(value);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
   const onFromSubmit = (e) => {
     e.preventDefault();
     const data = new FormData(e.target);
@@ -214,7 +286,7 @@ function SubInfo() {
           data={subTypes}
           label={"Sub Type"}
         />
-        {inputs.map((input) => (
+        {subInfo.map((input) => (
           <FromInput
             key={input.id}
             {...input}
@@ -239,6 +311,28 @@ function SubInfo() {
           name={"city"}
           data={cities}
           label={"City"}
+        />
+
+        {subAccount.map((input) => (
+          <FromInput
+            key={input.id}
+            {...input}
+            value={values[input.name]}
+            onChange={onChange}
+          />
+        ))}
+
+        <FormSelect
+          onChange={onChange}
+          name={"bank"}
+          data={banks}
+          label={"Bank"}
+        />
+        <FormSelect
+          onChange={onChange}
+          name={"branch"}
+          data={branches}
+          label={"Branch"}
         />
 
         <button>Submit</button>
