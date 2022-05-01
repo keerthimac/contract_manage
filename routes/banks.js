@@ -6,7 +6,7 @@ router.get("/", async (req, res) => {
     const response = await pool.query(
       // "SELECT bank_name,branch_code,branch_location FROM banks AS bk LEFT JOIN branches AS br ON bk.bank_code = br.bank_code WHERE bank_name like ?",
       // ["%bank%"]
-      "SELECT * FROM banks ORDER BY bank_name ASC"
+      "SELECT bank_code,UPPER(bank_name) as bank_name_up FROM banks ORDER BY bank_name ASC"
     );
     res.json(response[0]);
   } catch (err) {
@@ -21,7 +21,7 @@ router.get("/:code", async (req, res) => {
     const response = await pool.query(
       // "SELECT bank_name,branch_code,branch_location FROM banks AS bk LEFT JOIN branches AS br ON bk.bank_code = br.bank_code WHERE bank_name like ?",
       // ["%bank%"]
-      "SELECT branch_id, branch_code, branch_location FROM banks AS bk LEFT JOIN branches AS br ON bk.bank_code = br.bank_code WHERE bk.bank_code = ? ORDER BY br.branch_location ASC;",
+      "SELECT branch_id, branch_code, branch_location, CONCAT(UPPER(branch_location),' - ', branch_code) as branch_name FROM banks AS bk LEFT JOIN branches AS br ON bk.bank_code = br.bank_code WHERE bk.bank_code = ? ORDER BY br.branch_location ASC;",
       [code]
     );
     res.json(response[0]);

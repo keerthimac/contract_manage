@@ -1,5 +1,5 @@
 import { useState } from "react";
-// import "./formInput.css";
+import "./formInput.css";
 
 function FormInput(props) {
   const { id, label, errorMessage, onChange, ...inputProps } = props;

@@ -1,4 +1,4 @@
-// import "./subInfo.css";
+import "./subInfo.css";
 import { useState, useEffect } from "react";
 import FromInput from "../../shared/formInput/FormInput";
 import FormSelect from "../../shared/fromSelect/FormSelect";
@@ -51,7 +51,7 @@ function SubInfo() {
     { id: 2, value: "company", label: "company" },
   ];
 
-  const subInfo = [
+  const subName = [
     {
       id: 1,
       name: "subName",
@@ -69,36 +69,6 @@ function SubInfo() {
       // errorMessage:
       //   "Username should be at 3-16 characters and shouldn't include any special character.",
       label: "Sub Contractor Nick Name",
-      // pattern: "^[A-Za-z0-9]{3,16}$",
-      required: true,
-    },
-    {
-      id: 3,
-      name: "addressLine01",
-      placeholder: "Address Line 01",
-      // errorMessage:
-      //   "Username should be at 3-16 characters and shouldn't include any special character.",
-      label: "Address Line 01",
-      // pattern: "^[A-Za-z0-9]{3,16}$",
-      required: true,
-    },
-    {
-      id: 4,
-      name: "addressLine02",
-      placeholder: "Address Line 02",
-      // errorMessage:
-      //   "Username should be at 3-16 characters and shouldn't include any special character.",
-      label: "Address Line 02",
-      // pattern: "^[A-Za-z0-9]{3,16}$",
-      required: true,
-    },
-    {
-      id: 5,
-      name: "addressLine03",
-      placeholder: "Address Line 03",
-      // errorMessage:
-      //   "Username should be at 3-16 characters and shouldn't include any special character.",
-      label: "Address Line 03",
       // pattern: "^[A-Za-z0-9]{3,16}$",
       required: true,
     },
@@ -140,6 +110,39 @@ function SubInfo() {
     //   pattern: values.password,
     //   required: true,
     // },
+  ];
+
+  const subAddress = [
+    {
+      id: 3,
+      name: "addressLine01",
+      placeholder: "Address Line 01",
+      // errorMessage:
+      //   "Username should be at 3-16 characters and shouldn't include any special character.",
+      label: "Address Line 01",
+      // pattern: "^[A-Za-z0-9]{3,16}$",
+      required: true,
+    },
+    {
+      id: 4,
+      name: "addressLine02",
+      placeholder: "Address Line 02",
+      // errorMessage:
+      //   "Username should be at 3-16 characters and shouldn't include any special character.",
+      label: "Address Line 02",
+      // pattern: "^[A-Za-z0-9]{3,16}$",
+      required: true,
+    },
+    {
+      id: 5,
+      name: "addressLine03",
+      placeholder: "Address Line 03",
+      // errorMessage:
+      //   "Username should be at 3-16 characters and shouldn't include any special character.",
+      label: "Address Line 03",
+      // pattern: "^[A-Za-z0-9]{3,16}$",
+      required: true,
+    },
   ];
 
   const subAccount = [
@@ -235,7 +238,7 @@ function SubInfo() {
       const value = data.map((bank) => ({
         id: bank.bank_code,
         value: bank.bank_code,
-        label: bank.bank_name,
+        label: bank.bank_name_up,
       }));
       setBanks(value);
     } catch (err) {
@@ -255,7 +258,7 @@ function SubInfo() {
       const value = data.map((branch) => ({
         id: branch.branch_id,
         value: branch.branch_id,
-        label: branch.branch_location,
+        label: branch.branch_name,
       }));
       setBranches(value);
     } catch (err) {
@@ -277,67 +280,81 @@ function SubInfo() {
   };
 
   return (
-    <div className='subInfo'>
-      <form onSubmit={onFromSubmit}>
-        <h1>Register</h1>
-        <FormSelect
-          onChange={onChange}
-          name={"subType"}
-          data={subTypes}
-          label={"Sub Type"}
-        />
-        {subInfo.map((input) => (
-          <FromInput
-            key={input.id}
-            {...input}
-            value={values[input.name]}
+    <form onSubmit={onFromSubmit}>
+      <h1>Register</h1>
+      <div className='subContainer'>
+        <div class='subName'>
+          <FormSelect
             onChange={onChange}
+            name={"subType"}
+            data={subTypes}
+            label={"Sub Type"}
           />
-        ))}
-        <FormSelect
-          onChange={onChange}
-          name={"province"}
-          data={provinces}
-          label={"Province"}
-        />
-        <FormSelect
-          onChange={onChange}
-          name={"district"}
-          data={districts}
-          label={"District"}
-        />
-        <FormSelect
-          onChange={onChange}
-          name={"city"}
-          data={cities}
-          label={"City"}
-        />
-
-        {subAccount.map((input) => (
-          <FromInput
-            key={input.id}
-            {...input}
-            value={values[input.name]}
+          {subName.map((input) => (
+            <FromInput
+              key={input.id}
+              {...input}
+              value={values[input.name]}
+              onChange={onChange}
+            />
+          ))}
+        </div>
+        <div className='subAddress'>
+          {subAddress.map((input) => (
+            <FromInput
+              key={input.id}
+              {...input}
+              value={values[input.name]}
+              onChange={onChange}
+            />
+          ))}
+          <FormSelect
             onChange={onChange}
+            name={"province"}
+            data={provinces}
+            label={"Province"}
           />
-        ))}
+          <FormSelect
+            onChange={onChange}
+            name={"district"}
+            data={districts}
+            label={"District"}
+          />
+          <FormSelect
+            onChange={onChange}
+            name={"city"}
+            data={cities}
+            label={"City"}
+          />
+        </div>
+        <div className='subBank'>
+          <div className='subBank'>
+            {subAccount.map((input) => (
+              <FromInput
+                key={input.id}
+                {...input}
+                value={values[input.name]}
+                onChange={onChange}
+              />
+            ))}
 
-        <FormSelect
-          onChange={onChange}
-          name={"bank"}
-          data={banks}
-          label={"Bank"}
-        />
-        <FormSelect
-          onChange={onChange}
-          name={"branch"}
-          data={branches}
-          label={"Branch"}
-        />
-
-        <button>Submit</button>
-      </form>
-    </div>
+            <FormSelect
+              onChange={onChange}
+              name={"bank"}
+              data={banks}
+              label={"Bank"}
+            />
+            <FormSelect
+              onChange={onChange}
+              name={"branch"}
+              data={branches}
+              label={"Branch"}
+            />
+          </div>
+        </div>
+      </div>
+      <button>Submit</button>
+    </form>
   );
 }
 

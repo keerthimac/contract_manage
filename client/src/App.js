@@ -1,4 +1,4 @@
-// import "./App.css";
+import "./App.css";
 
 import SubInfo from "./components/subInfo/SubInfo";
 function App() {
