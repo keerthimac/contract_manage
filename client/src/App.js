@@ -1,9 +1,9 @@
 import "./App.css";
 
-import SubInfo from "./components/subInfo/SubInfo";
+import SubInfo from "./components/SubInfo/SubInfo";
 function App() {
   return (
-    <div className='app'>
+    <div className="app">
       <SubInfo />
     </div>
   );

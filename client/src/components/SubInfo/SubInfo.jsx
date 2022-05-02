@@ -1,7 +1,7 @@
 import "./subInfo.css";
 import { useState, useEffect } from "react";
-import FromInput from "../../shared/formInput/FormInput";
-import FormSelect from "../../shared/fromSelect/FormSelect";
+import FromInput from "../../shared/FormInput/FormInput";
+import FormSelect from "../../shared/FromSelect/FormSelect";
 
 function SubInfo() {
   const [values, setValues] = useState({
@@ -18,6 +18,10 @@ function SubInfo() {
     bankAccountNumber: "",
     bank: "0",
     branch: "0",
+    subPhoneName:"",
+    subPhoneRole:"",
+    subPhoneNumber:""
+
   });
 
   const [provinces, setProvinces] = useState([
@@ -49,6 +53,13 @@ function SubInfo() {
   const subTypes = [
     { id: 1, value: "1", label: "individual" },
     { id: 2, value: "2", label: "company" },
+  ];
+
+  const subPhoneRoles = [
+    { id: 1, value: "1", label: "Owner" },
+    { id: 2, value: "2", label: "Representative" },
+    { id: 3, value: "3", label: "Mason" },
+    { id: 4, value: "4", label: "Labor" },
   ];
 
   const subName = [
@@ -111,6 +122,27 @@ function SubInfo() {
     //   required: true,
     // },
   ];
+
+  const subPhone =[    {
+    id: 3,
+    name: "subPhoneName",
+    placeholder: "Phone Number Owner Name",
+    // errorMessage:
+    //   "Username should be at 3-16 characters and shouldn't include any special character.",
+    label: "Phone Number Owner Name",
+    // pattern: "^[A-Za-z0-9]{3,16}$",
+    required: true,
+  },
+  {
+    id: 4,
+    name: "subPhoneNumber",
+    placeholder: "Phone Number",
+    // errorMessage:
+    //   "Username should be at 3-16 characters and shouldn't include any special character.",
+    label: "Phone Number",
+    // pattern: "^[A-Za-z0-9]{3,16}$",
+    required: true,
+  },]
 
   const subAddress = [
     {
@@ -276,10 +308,37 @@ function SubInfo() {
       },
       body: JSON.stringify({ ...values }),
     });
-    const data = await response1.json();
-    console.log(data);
-    // const data = new FormData(e.target);
-    // console.log(Object.fromEntries(data.entries()));
+    const data1 = await response1.json();
+    console.log(data1);
+
+    //get req for id
+    const name = values.subName
+    
+    const response2 = await fetch(`http://localhost:5000/subContract/${name}`);
+    const data2 = await response2.json();
+    const id = data2[0].id
+    console.log(id)
+    
+    // const response3 = await fetch(`http://localhost:5000/subContract/${name}`);
+    // const data3 = await response3.json();
+    // console.log(data3)
+    
+    
+    
+    
+    
+    
+    // const response3 = await fetch("http://localhost:5000/subContract/subName", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({ ...values }),
+    // });
+    // const data2= await response1.json();
+    // console.log(data2);
+    // // const data = new FormData(e.target);
+    // // console.log(Object.fromEntries(data.entries()));
   };
 
   const onChange = (e) => {
@@ -301,6 +360,20 @@ function SubInfo() {
             label={"Sub Type"}
           />
           {subName.map((input) => (
+            <FromInput
+              key={input.id}
+              {...input}
+              value={values[input.name]}
+              onChange={onChange}
+            />
+          ))}
+          <FormSelect
+            onChange={onChange}
+            name={"subPhoneRole"}
+            data={subPhoneRoles}
+            label={"sub Phone Number"}
+          />
+          {subPhone.map((input) => (
             <FromInput
               key={input.id}
               {...input}
