@@ -18,10 +18,10 @@ function SubInfo() {
     bankAccountNumber: "",
     bank: "0",
     branch: "0",
-    subPhoneName:"",
-    subPhoneRole:"",
-    subPhoneNumber:""
-
+    subPhoneName: "",
+    subPhoneRole: "",
+    subPhoneNumber: "",
+    subId: "",
   });
 
   const [provinces, setProvinces] = useState([
@@ -123,30 +123,32 @@ function SubInfo() {
     // },
   ];
 
-  const subPhone =[    {
-    id: 3,
-    name: "subPhoneName",
-    placeholder: "Phone Number Owner Name",
-    // errorMessage:
-    //   "Username should be at 3-16 characters and shouldn't include any special character.",
-    label: "Phone Number Owner Name",
-    // pattern: "^[A-Za-z0-9]{3,16}$",
-    required: true,
-  },
-  {
-    id: 4,
-    name: "subPhoneNumber",
-    placeholder: "Phone Number",
-    // errorMessage:
-    //   "Username should be at 3-16 characters and shouldn't include any special character.",
-    label: "Phone Number",
-    // pattern: "^[A-Za-z0-9]{3,16}$",
-    required: true,
-  },]
+  const subPhone = [
+    {
+      id: 3,
+      name: "subPhoneName",
+      placeholder: "Phone Number Owner Name",
+      // errorMessage:
+      //   "Username should be at 3-16 characters and shouldn't include any special character.",
+      label: "Phone Number Owner Name",
+      // pattern: "^[A-Za-z0-9]{3,16}$",
+      required: true,
+    },
+    {
+      id: 4,
+      name: "subPhoneNumber",
+      placeholder: "Phone Number",
+      // errorMessage:
+      //   "Username should be at 3-16 characters and shouldn't include any special character.",
+      label: "Phone Number",
+      // pattern: "^[A-Za-z0-9]{3,16}$",
+      required: true,
+    },
+  ];
 
   const subAddress = [
     {
-      id: 3,
+      id: 5,
       name: "addressLine01",
       placeholder: "Address Line 01",
       // errorMessage:
@@ -156,7 +158,7 @@ function SubInfo() {
       required: true,
     },
     {
-      id: 4,
+      id: 6,
       name: "addressLine02",
       placeholder: "Address Line 02",
       // errorMessage:
@@ -166,7 +168,7 @@ function SubInfo() {
       required: true,
     },
     {
-      id: 5,
+      id: 7,
       name: "addressLine03",
       placeholder: "Address Line 03",
       // errorMessage:
@@ -179,7 +181,7 @@ function SubInfo() {
 
   const subAccount = [
     {
-      id: 6,
+      id: 8,
       name: "bankAccountName",
       placeholder: "Bank Account Name",
       // errorMessage:
@@ -189,7 +191,7 @@ function SubInfo() {
       required: true,
     },
     {
-      id: 7,
+      id: 9,
       name: "bankAccountNumber",
       placeholder: "Bank Account Number",
       // errorMessage:
@@ -312,31 +314,27 @@ function SubInfo() {
     console.log(data1);
 
     //get req for id
-    const name = values.subName
-    
+    const name = values.subName;
+
     const response2 = await fetch(`http://localhost:5000/subContract/${name}`);
     const data2 = await response2.json();
-    const id = data2[0].id
-    console.log(id)
-    
-    // const response3 = await fetch(`http://localhost:5000/subContract/${name}`);
+    const [{ id }] = data2;
+    console.log(id);
+    setValues({ ...values, subId: id });
+
+    // const response3 = await fetch(
+    //   "http://localhost:5000/subContract/subPhone",
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({ ...values, id }),
+    //   }
+    // );
     // const data3 = await response3.json();
-    // console.log(data3)
-    
-    
-    
-    
-    
-    
-    // const response3 = await fetch("http://localhost:5000/subContract/subName", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({ ...values }),
-    // });
-    // const data2= await response1.json();
-    // console.log(data2);
+    // console.log(data3);
+
     // // const data = new FormData(e.target);
     // // console.log(Object.fromEntries(data.entries()));
   };
@@ -371,7 +369,7 @@ function SubInfo() {
             onChange={onChange}
             name={"subPhoneRole"}
             data={subPhoneRoles}
-            label={"sub Phone Number"}
+            label={"Phone Number Owner Role"}
           />
           {subPhone.map((input) => (
             <FromInput
