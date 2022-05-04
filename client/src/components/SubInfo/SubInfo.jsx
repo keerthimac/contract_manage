@@ -320,20 +320,46 @@ function SubInfo() {
     const data2 = await response2.json();
     const [{ id }] = data2;
     console.log(id);
-    setValues({ ...values, subId: id });
+    setValues({ ...values, subId: id }); //optional
 
-    // const response3 = await fetch(
-    //   "http://localhost:5000/subContract/subPhone",
-    //   {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({ ...values, id }),
-    //   }
-    // );
-    // const data3 = await response3.json();
-    // console.log(data3);
+    const response3 = await fetch(
+      `http://localhost:5000/subContract/subPhone/${id}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...values }),
+      }
+    );
+    const data3 = await response3.json();
+    console.log(data3);
+
+    const response4 = await fetch(
+      `http://localhost:5000/subContract/subAddress/${id}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...values }),
+      }
+    );
+    const data4 = await response4.json();
+    console.log(data4);
+
+    const response5 = await fetch(
+      `http://localhost:5000/subContract/subBank/${id}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...values }),
+      }
+    );
+    const data5 = await response5.json();
+    console.log(data5);
 
     // // const data = new FormData(e.target);
     // // console.log(Object.fromEntries(data.entries()));
