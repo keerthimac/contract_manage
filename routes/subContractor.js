@@ -94,9 +94,10 @@ router.post("/subBank/:id", async (req, res) => {
     //console.log(subName);
 
     const response = await pool.query(
-      "INSERT INTO arch.sub_contractor_address (sub_contractor_id,sub_account_name,sub_account_number,bank_code,branch_id) VALUES (?,?,?,?,?)",
+      "INSERT INTO arch.sub_bank_accounts (sub_contractor_id,sub_account_name,sub_account_number,bank_code,branch_id) VALUES (?,?,?,?,?)",
       [id, bankAccountName, bankAccountNumber, bank, branch]
     );
+
     res.json(response[0]);
   } catch (err) {
     console.error(err.message);

@@ -1,16 +1,23 @@
 CREATE DATABASE IF NOT EXISTS arch;
 use arch;
+
+-- before run this, please run banks & city info sql files
+
 CREATE TABLE IF NOT EXISTS sub_contract_type(
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
     sub_contract_type VARCHAR(255) NOT NULL
 );
+
+INSERT INTO sub_contract_type (sub_contract_type) VALUES ('individual');
+INSERT INTO sub_contract_type (sub_contract_type) VALUES ('company');
+
 -- Sub Contractor Info
 CREATE TABLE IF NOT EXISTS sub_contractors (
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
     sub_contract_type_id INTEGER NOT NULL,
     sub_name VARCHAR(255) NOT NULL,
     sub_nick_name VARCHAR(255) NOT NULL,
-    FOREIGN KEY(sub_contract_type_id) REFERENCES sub_contract_type(id),
+    FOREIGN KEY(sub_contract_type_id) REFERENCES sub_contract_type(id)
 );
 -- Sub Contractor Address
 CREATE TABLE IF NOT EXISTS sub_contractor_address (
@@ -36,20 +43,7 @@ CREATE TABLE IF NOT EXISTS sub_contract_phone(
     sub_phone_number VARCHAR(55),
     FOREIGN KEY(sub_contractor_id) REFERENCES sub_contractors(id)
 );
--- banks info
-CREATE TABLE IF NOT EXISTS banks(
-    bank_code INT NOT NULL,
-    bank_name VARCHAR(250),
-    PRIMARY KEY(bank_code)
-);
-CREATE TABLE IF NOT EXISTS branches(
-    branch_id INT AUTO_INCREMENT,
-    bank_code INT NOT NULL,
-    branch_code INT,
-    branch_location VARCHAR(250),
-    PRIMARY key(branch_id),
-    FOREIGN KEY (bank_code) REFERENCES banks(bank_code)
-);
+
 CREATE TABLE IF NOT EXISTS sub_bank_accounts(
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
     sub_contractor_id INTEGER NOT NULL,
