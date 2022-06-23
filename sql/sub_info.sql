@@ -32,7 +32,8 @@ CREATE TABLE IF NOT EXISTS sub_contractor_address (
     FOREIGN KEY(district_id) REFERENCES districts(id),
     FOREIGN KEY(city_id) REFERENCES cities(id)
 );
---Sub Contractor Contacts
+
+-- Sub Contractor Contacts
 CREATE TABLE IF NOT EXISTS sub_contract_phone(
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
     sub_contractor_id INTEGER NOT NULL,
@@ -251,14 +252,15 @@ CREATE TABLE IF NOT EXISTS sub_contracts(
     end_date DATE,
     FOREIGN KEY(sub_rate_schedule_id) REFERENCES sub_rate_schedules(id),
     FOREIGN KEY(project_id) REFERENCES projects(id),
-    FOREIGN KEY(sub_contractor_id) REFERENCES sub_contractors(id),
+    FOREIGN KEY(sub_contractor_id) REFERENCES sub_contractors(id)
 );
 -- bills
 CREATE TABLE IF NOT EXISTS sub_contracts_bills(
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
     sub_contract_id INTEGER NOT NULL,
-    sub_contract_bill VARCHAR(255) NOT NULL,
-) -- payments
+    sub_contract_bill VARCHAR(255) NOT NULL
+);
+-- payments
 CREATE TABLE IF NOT EXISTS sub_payments(
     id INTEGER PRIMARY KEY AUTO_INCREMENT,
     sub_contract_id INTEGER NOT NULL,
@@ -270,5 +272,5 @@ CREATE TABLE IF NOT EXISTS sub_payments(
     updated_at DATETIME NOT NULL,
     FOREIGN KEY(sub_contract_id) REFERENCES sub_contracts(id),
     FOREIGN KEY(sub_bank_account_id) REFERENCES sub_bank_accounts(id),
-    FOREIGN KEY(sub_contract_bill_id) REFERENCES sub_contracts_bills(id),
-);
+    FOREIGN KEY(sub_contract_bill_id) REFERENCES sub_contracts_bills(id)
+)
